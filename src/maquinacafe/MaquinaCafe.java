@@ -8,43 +8,41 @@ package maquinacafe;
 import javax.swing.JOptionPane;
 
 /**
- * Programa de una cafetera que tendrá cuatro clases. 
- * Botonera: que se corresponde a los botones que puede pulsar el usuario. 
- * Display: los mensajes que se mandan desde pantalla. 
- * Monedero: que contendrá las operaciones lógicas. 
- * Producto: vendrán definidos los productos que tendrá la cafetera.
+ * Programa de una cafetera que tendrá cuatro clases. Botonera: que se
+ * corresponde a los botones que puede pulsar el usuario. Display: los mensajes
+ * que se mandan desde pantalla. Monedero: que contendrá las operaciones
+ * lógicas. Producto: vendrán definidos los productos que tendrá la cafetera.
  *
  * @author tperezrodriguez
  */
 public class MaquinaCafe {
 
     /**
-     * Clase principal del programa. Contendrá un menú con las primeras 
-     * opciones que tiene la cafetera.
+     * Clase principal del programa. Contendrá un menú con las primeras opciones
+     * que tiene la cafetera.
      *
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+
         Display d = new Display();
         Monedero m = new Monedero();
         Botonera b = new Botonera();
+        Cafetera c = new Cafetera();
 
         /**
-         * Instanciamos un icono de una máquina de café para usar en el
-         * JOptionPane y después creamos un Array con las opciones que contendrá
-         * el JOptionPane. Después configuramos el JOptionPane con las opciones
-         * que queremos y por último creamos un swith que llamará a los métodos
-         * que inician la cafetera.
+         * Creamos un Array con opciones de String para crear los botones del
+         * JOptionPane.
+         *
          */
-        
-        String[] opciones = {"Salir de la máquina de café", 
-            "Comprobar producto", "Ingresar dinero", "Devolver saldo"};
-        int op = JOptionPane.showOptionDialog(null, "¿Qué es lo que desea hacer"
-                + " con la máquina de café?", "Máquina de café", 
-                JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, 
-                null, opciones, opciones[1]);
+        String[] opciones = {"Salir de la máquina de café", "Comprobar producto", "Ingresar dinero"};
+        int op = JOptionPane.showOptionDialog(null, "¿Qué es lo que desea hacer con la máquina de café?", "Máquina de café", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[1]);
 
+        /**
+         * Ahora hacemos un switch que contendrá los métodos que constituyen el
+         * programa. Este switch recibe op, que es la variable que nos devuelve
+         * el JOptionPane.
+         */
         switch (op) {
             case 0:
                 System.exit(0);
@@ -53,22 +51,20 @@ public class MaquinaCafe {
                 b.comprobarPrecios(d.dComprobarProducto());
                 m.ingresarDinero(d.dDinero());
                 b.escogerProducto(d.dEscogerProducto());
-                  //validar saldo
+                m.validarSaldo(m.verdineroingresado(), c.Cafe(), c.Te(), c.Chocolate());
                 b.añadirAzucar(d.dAzucar());
                 d.elaborandoProducto();
-                m.devolverCambio();
+                m.devolverCambio(b.escogerProducto(d.recogerProducto()), m.verdineroingresado());
+                d.dDevolverCambio();
                 break;
             case 2:
                 m.ingresarDinero(d.dDinero());
                 b.escogerProducto(d.dEscogerProducto());
-                //validar saldo
-               b.añadirAzucar(d.dAzucar());
-               d.elaborandoProducto();
-                m.devolverCambio();
-                break;
-            case 3:
-                m.devolverSaldo();
-                d.dDSaldo();
+                m.validarSaldo(m.verdineroingresado(), c.Cafe(), c.Te(), c.Chocolate());
+                b.añadirAzucar(d.dAzucar());
+                d.elaborandoProducto();
+                m.devolverCambio(b.escogerProducto(d.recogerProducto()), m.verdineroingresado());
+                d.dDevolverCambio();
                 break;
 
         }
